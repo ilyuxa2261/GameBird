@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GameBird.MainWindow"
+        Title="GameBird">
+    <Window.Styles>
+        <StyleInclude Source="Styles.axaml"/>
+    </Window.Styles>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Background="AliceBlue" CornerRadius="10" Padding="5" Width="500" Height="300">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <Border Background="Fuchsia" CornerRadius="10" Padding="5" Width="100" Height="30"
+                        HorizontalAlignment="Center"
+                        Classes="">
+                    <TextBlock  
+                        Text="Правила:"
+                        Classes="play_csreen"/>
+                </Border>
+                <TextBlock
+                    Text="1) нужно управлять птицей, чтобы она пролетала между зелеными трубами, не задевая их"
+                    Classes="letter_color"/>
+                <TextBlock
+                    Text="2) ЛКМ - птица взлеает, ПКМ - птица падает. "
+                    Classes="letter_color"/>
+                <TextBlock
+                    Text="3) Набирайте очки за пройденное расстояние."
+                    Classes="letter_color"/>
+                <TextBlock 
+                    Text="4) Игра заканчивается, если птица сталкивается с трубами или падает вниз."
+                    Classes="letter_color"/>
+                    
+                <Button
+                    Click="Click_Play"
+                    Classes="play"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>

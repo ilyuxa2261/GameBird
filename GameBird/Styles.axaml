@@ -1,0 +1,80 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+    
+    
+    
+    <Style Selector="Button.play">
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="Background" Value="Aqua"/>
+        <Setter Property="Effect">
+            <DropShadowEffect Color="DeepSkyBlue" BlurRadius="10"/>
+        </Setter>
+        <Setter Property="Content" Value="Начать игру"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="50,30,0,0"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    
+    
+    <Style Selector="Button.play:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Yellow"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    
+    
+    
+    <Style Selector="Button.click:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="Button.click:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    
+    
+    
+    <Style Selector="TextBlock.letter_color">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    
+    
+    
+    <Style Selector="Border.bird">
+        <Setter Property="Background" Value="Gold"/>
+        <Setter Property="CornerRadius" Value="50"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="100,500,0,0"/>
+    </Style>
+    
+    
+    
+    <Style Selector="Grid.screen">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <Style Selector="TextBlock.play_csreen">
+        <Setter Property="Foreground" Value="AliceBlue"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    
+    
+
+</Styles>
