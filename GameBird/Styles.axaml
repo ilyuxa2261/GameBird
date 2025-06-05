@@ -57,6 +57,9 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Margin" Value="100,500,0,0"/>
+        <Setter Property="Effect">
+            <DropShadowEffect Color="GreenYellow" BlurRadius="20" OffsetX="0" OffsetY="0"/>
+        </Setter>
     </Style>
     
     
@@ -108,7 +111,11 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Margin" Value="10"/>
+        <Setter Property="Effect">
+            <DropShadowEffect Color="DeepSkyBlue" BlurRadius="20"/>
+        </Setter>
     </Style>
+    
     <Style Selector="TextBlock.count1">
         <Setter Property="Text" Value="Счёт: "/>
         <Setter Property="Foreground" Value="Black"/>

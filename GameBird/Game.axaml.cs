@@ -51,8 +51,9 @@ public partial class Game : Window
 
     private void generate_obstacle()
     {
-        //таймер генерации препятствий
-        _obstacleTimer = new DispatcherTimer {};
+        _obstacleTimer = new DispatcherTimer();
+        // Первый спавн через случайный интервал (3-7 секунд)
+        _obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 7000));
         _obstacleTimer.Tick += SpawnObstacle!;
         _obstacleTimer.Start();
     }
@@ -120,7 +121,9 @@ public partial class Game : Window
     {
         //в каком интервале времени появится новый столб
         //_obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 8000));
-        _obstacleTimer.Interval = TimeSpan.FromSeconds(_random.Next(3, 8));
+        // Устанавливаем следующий интервал перед созданием препятствий
+        _obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 7000));
+        //_obstacleTimer.Interval = TimeSpan.FromSeconds(_random.Next(3, 8));
         //позиция дырки может быть от самого верха до самого низа
         int gapY = _random.Next(0, (int)Height - MinGap);
         int gapHeight = _random.Next(MinGap, MaxGap);
