@@ -31,7 +31,15 @@ public partial class Game : Window
     public Game()
     {
         InitializeComponent();
+        fall_bird();
+        generate_obstacle();
+        timer_count();
+        Raw();
         
+    }
+
+    private void fall_bird()
+    {
         //таймер падения птички
         _fallTimer = new DispatcherTimer
         {
@@ -39,13 +47,24 @@ public partial class Game : Window
         };
         _fallTimer.Tick += OnFallTick!;
         _fallTimer.Start();
-        
+    }
+
+    private void generate_obstacle()
+    {
         //таймер генерации препятствий
         _obstacleTimer = new DispatcherTimer {};
         _obstacleTimer.Tick += SpawnObstacle!;
         _obstacleTimer.Start();
-        
-        
+    }
+
+    private void Raw()
+    {
+        // Подписываемся на Raw событие мыши, чтобы обойти стандартные обработчики Button
+        AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
+    }
+
+    private void timer_count()
+    {
         //обычный таймер
         Count = 0;
         _timer = new DispatcherTimer
@@ -54,15 +73,9 @@ public partial class Game : Window
         };
         _timer.Tick += Timer_Tick;
         _timer.Start();
-        
-        // Подписываемся на Raw событие мыши, чтобы обойти стандартные обработчики Button
-        AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
-        
     }
 
-    
-    
-    
+
     //движения и удаление за экраном
     private void OnFallTick(object sender, EventArgs e)
     {
