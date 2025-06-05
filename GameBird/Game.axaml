@@ -10,30 +10,12 @@
         <StyleInclude Source="Styles.axaml"/>
     </Window.Styles>
         
-    <Grid x:Name="MainGrid"
-          Classes="screen">
-                
-        <Border x:Name="GoldSquare"
-                Classes="bird"/>
-    
-        <Button x:Name="JumpButton"
-                Background="Transparent"
-                BorderThickness="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Cursor="Hand"
-                Classes="">
-        </Button>
-        
-        <StackPanel Orientation="Horizontal"
-                    Background="AliceBlue"
-                    Width="150"
-                    Height="30"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="10">
-            <TextBlock Text="Счёт: " Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 0 0 0"/>
-            <TextBlock x:Name="TextCount" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid x:Name="MainGrid" Classes="screen">
+        <Border x:Name="GoldSquare" Classes="bird"/>
+        <Button x:Name="JumpButton" Classes="invisible_button"/>
+        <StackPanel Classes="panel_count">
+            <TextBlock Classes="count1"/>
+            <TextBlock x:Name="TextCount" Classes="count2"/>
         </StackPanel>
     </Grid>
 </Window>

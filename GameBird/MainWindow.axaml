@@ -9,11 +9,9 @@
         <StyleInclude Source="Styles.axaml"/>
     </Window.Styles>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border Background="AliceBlue" CornerRadius="10" Padding="5" Width="500" Height="300">
+        <Border Classes="behind_screen">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                <Border Background="Fuchsia" CornerRadius="10" Padding="5" Width="100" Height="30"
-                        HorizontalAlignment="Center"
-                        Classes="">
+                <Border Classes="rules_creen">
                     <TextBlock  
                         Text="Правила:"
                         Classes="play_csreen"/>
