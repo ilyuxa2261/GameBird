@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Avalonia;
+using Avalonia; 
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -15,18 +15,18 @@ namespace GameBird;
 
 public partial class Game : Window
 {
-    private DispatcherTimer _fallTimer; //отвечает за падение птички каждые 100мс
-    private DispatcherTimer _obstacleTimer; //отвечает за генерацию новых столбов
-    private DispatcherTimer _timer;//это для подсчета очков
-    private const double Gravity = 10; //падение птички
-    private const double JumpForce = -40; // подъем при клике
-    private readonly Random _random = new(); //генератор случайных чисел
-    private const int MinGap = 100; //минимальный размер дырки
-    private const int MaxGap = 200; //максимальнок
-    private const int ObstacleWidth = 60; //ширина столбов
-    private const double ObstacleSpeed = 10; //скорость столбов
-    private List<Border> _obstacles = new(); //список всех активных препятствий
-    private int Count; //счетчик в таймере
+    private DispatcherTimer _fallTimer = null!;
+    private DispatcherTimer _obstacleTimer = null!;
+    private DispatcherTimer _timer = null!;
+    private const double Gravity = 10;
+    private const double JumpForce = -40;
+    private readonly Random _random = new();
+    private const int MinGap = 100;
+    private const int MaxGap = 200;
+    private const int ObstacleWidth = 60;
+    private const double ObstacleSpeed = 10;
+    private List<Border> _obstacles = new();
+    private int Count;
 
     public Game()
     {
@@ -40,7 +40,6 @@ public partial class Game : Window
 
     private void fall_bird()
     {
-        //таймер падения птички
         _fallTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(100)
@@ -52,7 +51,6 @@ public partial class Game : Window
     private void generate_obstacle()
     {
         _obstacleTimer = new DispatcherTimer();
-        // Первый спавн через случайный интервал (3-7 секунд)
         _obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 7000));
         _obstacleTimer.Tick += SpawnObstacle!;
         _obstacleTimer.Start();
@@ -60,13 +58,12 @@ public partial class Game : Window
 
     private void Raw()
     {
-        // Подписываемся на Raw событие мыши, чтобы обойти стандартные обработчики Button
         AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
     }
 
     private void timer_count()
     {
-        //обычный таймер
+        
         Count = 0;
         _timer = new DispatcherTimer
         {
@@ -77,10 +74,8 @@ public partial class Game : Window
     }
 
 
-    //движения и удаление за экраном
     private void OnFallTick(object sender, EventArgs e)
     {
-        // гравитация для птички
         var margin = GoldSquare.Margin;
         GoldSquare.Margin = new Thickness(
             margin.Left,
@@ -89,7 +84,7 @@ public partial class Game : Window
             margin.Bottom
         );
         
-        //движение столбов
+        
         for (int i = _obstacles.Count - 1; i >= 0; i--)
         {
             var obstacle = _obstacles[i];
@@ -101,7 +96,6 @@ public partial class Game : Window
                 obsMargin.Bottom
             );
             
-            // удаление за экраном
             if (obstacle.Margin.Left + ObstacleWidth < 0)
             {
                 MainGrid.Children.Remove(obstacle);
@@ -115,20 +109,12 @@ public partial class Game : Window
     
     
     
-    
-    //генерация столбов
     private void SpawnObstacle(object sender, EventArgs e)
     {
-        //в каком интервале времени появится новый столб
-        //_obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 8000));
-        // Устанавливаем следующий интервал перед созданием препятствий
         _obstacleTimer.Interval = TimeSpan.FromMilliseconds(_random.Next(3000, 7000));
-        //_obstacleTimer.Interval = TimeSpan.FromSeconds(_random.Next(3, 8));
-        //позиция дырки может быть от самого верха до самого низа
         int gapY = _random.Next(0, (int)Height - MinGap);
         int gapHeight = _random.Next(MinGap, MaxGap);
     
-        // Верхний столб (от верха экрана до верхнего края дырки)
         var topObstacle = new Border
         {
             Width = ObstacleWidth,
@@ -140,7 +126,6 @@ public partial class Game : Window
             IsHitTestVisible = false
         };
     
-        // Нижний столб (от нижнего края дырки до низа экрана)
         var bottomObstacle = new Border
         {
             Width = ObstacleWidth,
@@ -151,10 +136,9 @@ public partial class Game : Window
             Margin = new Thickness(Width, 0, 0, 0),
             IsHitTestVisible = false
         };
-        //добавляем в контейнер для отображения на экране
         MainGrid.Children.Add(topObstacle);
         MainGrid.Children.Add(bottomObstacle);
-        //добавление в список активных препятствий
+        
         _obstacles.Add(topObstacle);
         _obstacles.Add(bottomObstacle);
     }
@@ -163,19 +147,15 @@ public partial class Game : Window
     
     
     
-    //проверка на столкновение
     private void CheckCollisions()
     {
-        //проверяем позицию птички
         var birdRect = new Rect(
             GoldSquare.Margin.Left,
             GoldSquare.Margin.Top,
             GoldSquare.Width,
             GoldSquare.Height);
-        //перебор всех препятствий
         foreach (var obstacle in _obstacles)
         {
-            //создаю прямоугольник который представляет геометрическую область препятствия
             var obstacleRect = new Rect(
                 obstacle.Margin.Left,
                 obstacle.VerticalAlignment == VerticalAlignment.Top 
@@ -184,7 +164,6 @@ public partial class Game : Window
                 obstacle.Width,
                 obstacle.Height);
             
-            //проверка столкновения
             if (birdRect.Intersects(obstacleRect))
             {
                 GameOver(Count);
@@ -192,7 +171,6 @@ public partial class Game : Window
             }
         }
         
-        // проверка столкновения в границей экрана
         if (GoldSquare.Margin.Top < 0 || GoldSquare.Margin.Top + GoldSquare.Height > Height)
         {
             GameOver(Count);
@@ -202,8 +180,6 @@ public partial class Game : Window
     
     
     
-    
-    //все останавливаем, записываем в Json результат и пишем GameOver и потом перемещаемся в главное меню
     private async void GameOver(int count)
     {
         _fallTimer.Stop();
@@ -223,7 +199,6 @@ public partial class Game : Window
         
         string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Count.json");
         ScoreData scoreData;
-        //если файл существует то берем данные из него, иначе создаем новую scoreData
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
@@ -234,7 +209,6 @@ public partial class Game : Window
             scoreData = new ScoreData();
         }
         
-        //проверяю топ рейтинг, если он больше последнего значения то записываю в Top
         scoreData.Now = Count;
         if (Count > scoreData.Top)
         {
